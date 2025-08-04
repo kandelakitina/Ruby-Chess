@@ -35,6 +35,18 @@
     targets = [];
     version = "0.4.1";
   };
+  colorize = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0dy8ryhcdzgmbvj7jpa1qq3bhhk1m7a2pz6ip0m6dxh30rzj7d9h";
+      target = "ruby";
+      type = "gem";
+    };
+    targets = [];
+    version = "1.1.0";
+  };
   diff-lcs = {
     groups = ["default"];
     platforms = [];

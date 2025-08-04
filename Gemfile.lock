@@ -4,6 +4,7 @@ GEM
     ast (2.4.3)
     backport (1.2.0)
     benchmark (0.4.1)
+    colorize (1.1.0)
     diff-lcs (1.6.2)
     jaro_winkler (1.6.1)
     json (2.13.2)
@@ -113,6 +114,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  colorize (~> 1.1)
   rspec (~> 3.13)
   rubocop (~> 1.79)
   solargraph (~> 0.56.2)
