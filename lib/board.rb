@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# require_relative 'pieces'
-require_relative 'empty_cell'
 require 'colorize'
+require_relative 'empty_cell'
+require_relative 'pieces'
 
 class Board
   attr_accessor :grid
