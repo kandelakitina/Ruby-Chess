@@ -1,21 +1,24 @@
 # frozen_string_literal: true
 
-require_relative 'pieces'
+# require_relative 'pieces'
+require_relative 'empty_cell'
 require 'colorize'
 
 class Board
   attr_accessor :grid
 
   def initialize
-    @grid = Array.new(8) { Array.new(8, '.') }
+    @board = Array.new(8) { Array.new(8) { EmptyCell.new } }
     # fill_board
   end
 
   def display
     8.downto(1) do |i|
-      puts "#{i.to_s.red} #{@grid[i - 1][0..8].join(' ')}"
+      row = @board[i - 1]
+      symbols = row.map(&:to_s)
+      puts "#{i.to_s.red} #{symbols.join(' ')}"
     end
-    puts '  a b c d e f g h'
+    puts '  a b c d e f g h'.green
   end
 
   # def empty?(pos)
