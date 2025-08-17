@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/pieces'
+require_relative '../../lib/pieces/piece'
 
 RSpec.describe Piece do
   let(:white_piece_class) do

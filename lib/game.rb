@@ -3,7 +3,6 @@
 require_relative 'board'
 require_relative 'user'
 require_relative 'ai'
-require_relative 'pieces'
 
 class Game
   def initialize

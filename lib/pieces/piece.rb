@@ -22,10 +22,9 @@ class Piece
   def symbol
     raise NotImplementedError, 'Subclasses must define a symbol'
   end
-end
 
-class Pawn < Piece
-  def symbol
-    'p'
+  def valid_move?(position)
+    x, y = position
+    x.between?(0, 7) && y.between?(0, 7)
   end
 end
