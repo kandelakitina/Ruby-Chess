@@ -24,27 +24,22 @@ class Board
     puts '  a b c d e f g h'.green
   end
 
-  # def empty?(pos)
-  #   row, col = pos
-  #   in_bounds?(pos) && @grid[row][col].nil?
-  # end
+  def empty_at?(pos)
+    row, col = pos
+    in_bounds?(pos) && @grid[row][col].empty?
+  end
 
-  # def enemy_at?(pos, color)
-  #   row, col = pos
-  #   return false unless in_bounds?(pos)
+  def enemy_at?(pos, color)
+    row, col = pos
+    in_bounds?(pos) && !@grid[row][col].empty? && @grid[row][col].color != color
+  end
 
-  #   piece = @grid[row][col]
-  #   return false if piece.nil?
+  private
 
-  #   piece.color != color
-  # end
-
-  # def in_bounds?(pos)
-  #   row, col = pos
-  #   row.between?(0, 7) && col.between?(0, 7)
-  # end
-
-  # private
+  def in_bounds?(pos)
+    row, col = pos
+    row.between?(0, 7) && col.between?(0, 7)
+  end
 
   # def fill_grid
   #   # Place white pawns on row 1
