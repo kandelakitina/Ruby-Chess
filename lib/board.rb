@@ -8,16 +8,16 @@ class Board
   attr_accessor :grid
 
   def initialize
-    @board = Array.new(8) { Array.new(8) { EmptyCell.new } }
+    @grid = Array.new(8) { Array.new(8) { EmptyCell.new } }
 
-    # TODO: - move to #fillboard
-    @board[1][4] = Pawn.new(:white)
-    @board[6][4] = Pawn.new(:black)
+    # TODO: - move to #fillgrid
+    @grid[1][4] = Pawn.new(:white)
+    @grid[6][4] = Pawn.new(:black)
   end
 
   def display
     8.downto(1) do |i|
-      row = @board[i - 1]
+      row = @grid[i - 1]
       symbols = row.map(&:to_s)
       puts "#{i.to_s.red} #{symbols.join(' ')}"
     end
@@ -46,7 +46,7 @@ class Board
 
   # private
 
-  # def fill_board
+  # def fill_grid
   #   # Place white pawns on row 1
   #   8.times do |col|
   #     @grid[1][col] = Pawn.new(:white, [1, col])

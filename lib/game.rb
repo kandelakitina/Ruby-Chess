@@ -6,21 +6,21 @@ require_relative 'ai'
 
 class Game
   def initialize
-    @board = Board.new
+    @grid = Board.new
     @player = User.new
     @ai = Ai.new
   end
 
   def play
     until game_over?
-      @board.display
+      @grid.display
 
-      move = @player.take_turn(@board)
+      move = @player.take_turn(@grid)
       apply_move(move)
 
       break if game_over?
 
-      move = @ai.take_turn(@board)
+      move = @ai.take_turn(@grid)
       apply_move(move)
     end
   end

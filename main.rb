@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'lib/board'
+require_relative 'lib/grid'
 
-board = Board.new
-board.display
+grid = Board.new
+grid.display
