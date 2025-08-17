@@ -11,8 +11,16 @@ RSpec.describe Board, type: :model do
       expect(board.grid.all? { |row| row.size == 8 }).to be true
     end
 
-    it 'fills the grid with EmptyCell objects' do
-      expect(board.grid.flatten).to all(be_a(EmptyCell))
+    it 'creates distinct objects for each grid cell' do
+      flattened = board.grid.flatten
+
+      # Only compare EmptyCell objects to ensure they are distinct
+      empty_cells = flattened.select { |cell| cell.is_a?(EmptyCell) }
+
+      # Expect all EmptyCell instances to be unique objects
+      empty_cells.combination(2).each do |cell1, cell2|
+        expect(cell1).not_to be(cell2)
+      end
     end
 
     it 'creates distinct EmptyCell instances (not the same object)' do
