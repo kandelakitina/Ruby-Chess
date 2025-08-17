@@ -9,7 +9,10 @@ class Board
 
   def initialize
     @board = Array.new(8) { Array.new(8) { EmptyCell.new } }
-    # fill_board
+
+    # TODO: - move to #fillboard
+    @board[1][4] = Pawn.new(:white)
+    @board[6][4] = Pawn.new(:black)
   end
 
   def display

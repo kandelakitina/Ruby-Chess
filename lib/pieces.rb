@@ -11,15 +11,21 @@ class Piece
     false
   end
 
-  def symbol
-    raise NotImplementedError, 'Subclasses must define a symbol'
-  end
-
   def to_s
     if color == :white
       symbol.upcase
     else
       symbol.downcase
     end
+  end
+
+  def symbol
+    raise NotImplementedError, 'Subclasses must define a symbol'
+  end
+end
+
+class Pawn < Piece
+  def symbol
+    'p'
   end
 end
