@@ -10,9 +10,7 @@ class Board
   def initialize
     @grid = Array.new(8) { Array.new(8) { EmptyCell.new } }
 
-    # TODO: - move to #fillgrid
-    @grid[1][4] = Pawn.new(:white)
-    @grid[6][4] = Pawn.new(:black)
+    fill_grid
   end
 
   def display
@@ -41,15 +39,31 @@ class Board
     row.between?(0, 7) && col.between?(0, 7)
   end
 
-  # def fill_grid
-  #   # Place white pawns on row 1
-  #   8.times do |col|
-  #     @grid[1][col] = Pawn.new(:white, [1, col])
-  #   end
+  def fill_grid
+    # Place white pieces
+    @grid[0][0], @grid[0][7] = Rook.new(:white)
+    @grid[0][1] = Knight.new(:white)
+    @grid[0][2] = Bishop.new(:white)
+    @grid[0][3] = Queen.new(:white)
+    @grid[0][4] = King.new(:white)
+    @grid[0][5] = Bishop.new(:white)
+    @grid[0][6] = Knight.new(:white)
+    @grid[0][7] = Rook.new(:white)
+    8.times do |col|
+      @grid[1][col] = Pawn.new(:white)
+    end
 
-  #   # Place black pawns on row 6
-  #   8.times do |col|
-  #     @grid[6][col] = Pawn.new(:black, [6, col])
-  #   end
-  # end
+    # Place black pieces
+    @grid[7][0] = Rook.new(:black)
+    @grid[7][1] = Knight.new(:black)
+    @grid[7][2] = Bishop.new(:black)
+    @grid[7][3] = Queen.new(:black)
+    @grid[7][4] = King.new(:black)
+    @grid[7][5] = Bishop.new(:black)
+    @grid[7][6] = Knight.new(:black)
+    @grid[7][7] = Rook.new(:black)
+    8.times do |col|
+      @grid[6][col] = Pawn.new(:black)
+    end
+  end
 end
