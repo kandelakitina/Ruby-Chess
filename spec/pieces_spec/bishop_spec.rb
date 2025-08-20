@@ -15,8 +15,8 @@ RSpec.describe Bishop do
 
   describe '#possible_moves' do
     it 'can move diagonally if path is clear' do
-      moves = bishop.possible_moves(board, 0, 2)
-      expect(moves).to include([1, 3], [2, 4])
+      moves = bishop.possible_moves(board, 3, 3)
+      expect(moves).to include([4, 4], [5, 5], [2, 4], [1, 5])
     end
 
     it 'cannot jump over pieces' do

@@ -7,25 +7,25 @@ class Bishop < Piece
     'b'
   end
 
-  # def possible_moves(board, row, col)
-  #   moves = []
+  def possible_moves(board, row, col)
+    moves = []
 
-  #   direction = color == :white ? 1 : -1
-  #   start_row = color == :white ? 1 : 6
+    # Diagonals: top-right, top-left, bottom-right, bottom-left
+    directions = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
 
-  #   # 1. Forward one
-  #   one_ahead = [row + direction, col]
-  #   moves << one_ahead if board.empty_at?(one_ahead)
+    directions.each do |row_dir, col_dir|
+      r = row + row_dir
+      c = col + col_dir
+      while board.in_bounds?([r, c]) && board.empty_at?([r, c])
+        moves << [r, c]
+        r += row_dir
+        c += col_dir
+      end
 
-  #   # 2. Forward two from starting row
-  #   two_ahead = [row + (2 * direction), col]
-  #   moves << two_ahead if row == start_row && board.empty_at?(one_ahead) && board.empty_at?(two_ahead)
+      # Capture logic
+      moves << [r, c] if board.in_bounds?([r, c]) && board.enemy_at?([r, c], color)
+    end
 
-  #   # 3. Diagonal captures
-  #   [[row + direction, col + 1], [row + direction, col - 1]].each do |r, c|
-  #     moves << [r, c] if board.enemy_at?([r, c], color)
-  #   end
-
-  #   moves
-  # end
+    moves
+  end
 end
