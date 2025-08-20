@@ -37,12 +37,12 @@ class Board
     in_bounds?(pos) && !@grid[row][col].empty? && @grid[row][col].color != color
   end
 
-  private
-
   def in_bounds?(pos)
     row, col = pos
     row.between?(0, 7) && col.between?(0, 7)
   end
+
+  private
 
   def fill_grid
     # Place white pieces
