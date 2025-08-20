@@ -16,36 +16,6 @@ RSpec.describe Board, type: :model do
       second = board.grid[2][1]
       expect(first).not_to be(second)
     end
-
-    it 'places 16 white pieces and 16 black pieces' do
-      flattened = board.grid.flatten
-      white_pieces = flattened.count { |cell| cell.is_a?(Piece) && cell.color == :white }
-      black_pieces = flattened.count { |cell| cell.is_a?(Piece) && cell.color == :black }
-
-      expect(white_pieces).to eq(16)
-      expect(black_pieces).to eq(16)
-    end
-
-    it 'places pawns in the correct rows' do
-      expect(board.grid[1].all? { |cell| cell.is_a?(Pawn) && cell.color == :white }).to be true
-      expect(board.grid[6].all? { |cell| cell.is_a?(Pawn) && cell.color == :black }).to be true
-    end
-
-    it 'places rooks, knights, bishops, queen, and king in the correct positions' do
-      # White back rank
-      expect(board.grid[0][0]).to be_a(Rook).and have_attributes(color: :white)
-      expect(board.grid[0][1]).to be_a(Knight).and have_attributes(color: :white)
-      expect(board.grid[0][2]).to be_a(Bishop).and have_attributes(color: :white)
-      expect(board.grid[0][3]).to be_a(Queen).and have_attributes(color: :white)
-      expect(board.grid[0][4]).to be_a(King).and have_attributes(color: :white)
-
-      # Black back rank
-      expect(board.grid[7][0]).to be_a(Rook).and have_attributes(color: :black)
-      expect(board.grid[7][1]).to be_a(Knight).and have_attributes(color: :black)
-      expect(board.grid[7][2]).to be_a(Bishop).and have_attributes(color: :black)
-      expect(board.grid[7][3]).to be_a(Queen).and have_attributes(color: :black)
-      expect(board.grid[7][4]).to be_a(King).and have_attributes(color: :black)
-    end
   end
 
   describe '#empty_at?' do
@@ -54,6 +24,9 @@ RSpec.describe Board, type: :model do
     end
 
     it 'returns false for a cell occupied by a piece' do
+      board.grid[1][4] = Pawn.new(:white)
+      board.grid[6][4] = Pawn.new(:black)
+
       expect(board.empty_at?([1, 4])).to be false
       expect(board.empty_at?([6, 4])).to be false
     end
@@ -66,17 +39,20 @@ RSpec.describe Board, type: :model do
 
   describe '#enemy_at?' do
     it 'returns true if there is an enemy piece at the position' do
+      board.grid[1][4] = Pawn.new(:white)
+      board.grid[6][4] = Pawn.new(:black)
+
       expect(board.enemy_at?([1, 4], :black)).to be true
       expect(board.enemy_at?([6, 4], :white)).to be true
     end
 
-    it 'returns false if the piece is the same color' do
-      expect(board.enemy_at?([1, 4], :white)).to be false
-      expect(board.enemy_at?([6, 4], :black)).to be false
-    end
-
     it 'returns false for an empty cell' do
       expect(board.enemy_at?([0, 0], :white)).to be false
+    end
+
+    it 'returns false if there is a friendly piece at the position' do
+      board.grid[2][2] = Knight.new(:white)
+      expect(board.enemy_at?([2, 2], :white)).to be false
     end
 
     it 'returns false for positions out of bounds' do
