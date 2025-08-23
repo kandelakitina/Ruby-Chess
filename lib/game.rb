@@ -13,6 +13,7 @@ class Game
 
   def initialize
     @board = Board.new
+    fill_grid
   end
 
   def fill_grid
