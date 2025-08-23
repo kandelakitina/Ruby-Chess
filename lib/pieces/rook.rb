@@ -7,25 +7,39 @@ class Rook < Piece
     'r'
   end
 
-  # def possible_moves(board, row, col)
-  #   moves = []
+  def possible_moves(board, row, col)
+    moves = []
 
-  #   direction = color == :white ? 1 : -1
-  #   start_row = color == :white ? 1 : 6
+    # straight directions: vertical and horizontal
+    directions = [
+      [1, 0],  # down
+      [-1, 0], # up
+      [0, 1],  # right
+      [0, -1]  # left
+    ]
 
-  #   # 1. Forward one
-  #   one_ahead = [row + direction, col]
-  #   moves << one_ahead if board.empty_at?(one_ahead)
+    directions.each do |dr, dc|
+      r = row
+      c = col
 
-  #   # 2. Forward two from starting row
-  #   two_ahead = [row + (2 * direction), col]
-  #   moves << two_ahead if row == start_row && board.empty_at?(one_ahead) && board.empty_at?(two_ahead)
+      loop do
+        r += dr
+        c += dc
+        break unless board.in_bounds?([r, c])
 
-  #   # 3. Diagonal captures
-  #   [[row + direction, col + 1], [row + direction, col - 1]].each do |r, c|
-  #     moves << [r, c] if board.enemy_at?([r, c], color)
-  #   end
+        target = board.grid[r][c]
 
-  #   moves
-  # end
+        if target.empty?
+          moves << [r, c]
+        elsif target.color != color
+          moves << [r, c] # can capture enemy
+          break
+        else
+          break # friendly piece blocks
+        end
+      end
+    end
+
+    moves
+  end
 end
