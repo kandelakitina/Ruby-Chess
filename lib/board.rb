@@ -19,6 +19,22 @@ class Board
     puts '  a b c d e f g h'.green
   end
 
+  def move_piece(from, to)
+    row, col = from
+    new_row, new_col = to
+    piece = @grid[row][col]
+
+    raise ArgumentError, "No piece at #{from}" if piece.is_a?(EmptyCell)
+
+    @grid[row][col] = EmptyCell.new
+    @grid[new_row][new_col] = piece
+  end
+
+  def in_bounds?(position)
+    row, col = position
+    row.between?(0, @grid.size - 1) && col.between?(0, @grid[0].size - 1)
+  end
+
   def empty_at?(pos)
     row, col = pos
     in_bounds?(pos) && @grid[row][col].empty?

@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 require_relative '../lib/board'
+require_relative '../lib/pieces/piece'
+require_relative '../lib/pieces/rook'
+require_relative '../lib/pieces/knight'
+require_relative '../lib/pieces/bishop'
+require_relative '../lib/pieces/queen'
+require_relative '../lib/pieces/king'
+require_relative '../lib/pieces/pawn'
 
 RSpec.describe Board, type: :model do
   let(:board) { Board.new }
@@ -58,6 +65,46 @@ RSpec.describe Board, type: :model do
     it 'returns false for positions out of bounds' do
       expect(board.enemy_at?([-1, 0], :white)).to be false
       expect(board.enemy_at?([8, 8], :black)).to be false
+    end
+  end
+
+  describe '#move_piece' do
+    before do
+      board.grid[0][0] = Rook.new(:white)
+    end
+
+    it 'moves a piece from one square to another' do
+      from = [0, 0]
+      to = [0, 3]
+
+      board.move_piece(from, to)
+
+      expect(board.grid[0][3]).to be_a(Rook)
+      expect(board.grid[0][3].color).to eq(:white)
+      expect(board.grid[0][0]).to be_a(EmptyCell)
+    end
+
+    it 'can capture an enemy piece' do
+      from = [0, 0]
+      to = [0, 3]
+      board.grid[0][3] = Knight.new(:black)
+
+      board.move_piece(from, to)
+
+      expect(board.grid[0][3]).to be_a(Rook)
+      expect(board.grid[0][3].color).to eq(:white)
+      expect(board.grid[0][0]).to be_a(EmptyCell)
+    end
+
+    it 'overwrites the target if occupied' do
+      from = [0, 0]
+      to = [0, 3]
+      board.grid[0][3] = Knight.new(:white) # friendly piece
+
+      board.move_piece(from, to)
+
+      expect(board.grid[0][3]).to be_a(Rook) # still overwrites
+      expect(board.grid[0][0]).to be_a(EmptyCell)
     end
   end
 end
