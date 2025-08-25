@@ -17,6 +17,7 @@ class Game
 
   def initialize
     @board = Board.new
+    @user = User.new(:white)
     fill_grid
   end
 
@@ -56,9 +57,10 @@ class Game
     # until game_over?
     @board.display
 
-    from, to = @player.take_turn(@board)
+    from, to = @user.take_turn(@board)
     @board.move_piece(from, to)
 
+    @board.display
     # break if game_over?
 
     # move = @ai.take_turn(@grid)
