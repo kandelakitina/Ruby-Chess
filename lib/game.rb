@@ -56,8 +56,8 @@ class Game
     # until game_over?
     @board.display
 
-    move = @player.take_turn
-    apply_move(move)
+    from, to = @player.take_turn(@board)
+    @board.move_piece(from, to)
 
     # break if game_over?
 
