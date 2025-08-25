@@ -30,11 +30,6 @@ class Board
     @grid[new_row][new_col] = piece
   end
 
-  def in_bounds?(position)
-    row, col = position
-    row.between?(0, @grid.size - 1) && col.between?(0, @grid[0].size - 1)
-  end
-
   def empty_at?(pos)
     row, col = pos
     in_bounds?(pos) && @grid[row][col].empty?
@@ -47,6 +42,11 @@ class Board
 
   def in_bounds?(pos)
     row, col = pos
-    row.between?(0, 7) && col.between?(0, 7)
+    row.between?(0, @grid.size - 1) && col.between?(0, @grid[0].size - 1)
+  end
+
+  def piece_at(pos)
+    row, col = pos
+    in_bounds?(pos) ? @grid[row][col] : nil
   end
 end

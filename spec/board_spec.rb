@@ -107,4 +107,39 @@ RSpec.describe Board, type: :model do
       expect(board.grid[0][0]).to be_a(EmptyCell)
     end
   end
+  describe '#in_bounds?' do
+    it 'returns true for positions inside the grid' do
+      expect(board.in_bounds?([0, 0])).to be true
+      expect(board.in_bounds?([7, 7])).to be true
+      expect(board.in_bounds?([3, 4])).to be true
+    end
+
+    it 'returns false for positions outside the grid' do
+      expect(board.in_bounds?([-1, 0])).to be false
+      expect(board.in_bounds?([0, -1])).to be false
+      expect(board.in_bounds?([8, 0])).to be false
+      expect(board.in_bounds?([0, 8])).to be false
+    end
+  end
+
+  describe '#piece_at' do
+    before do
+      board.grid[0][0] = Pawn.new(:white)
+    end
+
+    it 'returns the piece at a valid position' do
+      piece = board.piece_at([0, 0])
+      expect(piece).to be_a(Pawn)
+      expect(piece.color).to eq(:white)
+    end
+
+    it 'returns an EmptyCell if the square is empty' do
+      expect(board.piece_at([1, 1])).to be_a(EmptyCell)
+    end
+
+    it 'returns nil for positions out of bounds' do
+      expect(board.piece_at([-1, 0])).to be_nil
+      expect(board.piece_at([0, 8])).to be_nil
+    end
+  end
 end
