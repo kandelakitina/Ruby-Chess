@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 require_relative 'board'
+
+require_relative 'players/user'
+# require_relative 'players/ai'
+
 require_relative 'pieces/rook'
 require_relative 'pieces/knight'
 require_relative 'pieces/bishop'
@@ -48,19 +52,19 @@ class Game
     end
   end
 
-  # def play
-  #   until game_over?
-  #     @grid.display
+  def play
+    # until game_over?
+    @board.display
 
-  #     move = @player.take_turn(@grid)
-  #     apply_move(move)
+    move = @player.take_turn
+    apply_move(move)
 
-  #     break if game_over?
+    # break if game_over?
 
-  #     move = @ai.take_turn(@grid)
-  #     apply_move(move)
-  #   end
-  # end
+    # move = @ai.take_turn(@grid)
+    # apply_move(move)
+    # end
+  end
 
   # def userturn; end
 
